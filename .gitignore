@@ -1,0 +1,18 @@
+# Binaries
+*.exe
+*.o
+*.obj
+
+# Logs and quarantine
+logs/
+quarantine/
+
+# IDE
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.log

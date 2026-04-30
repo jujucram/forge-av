@@ -1,0 +1,4 @@
+trojan
+malware
+keylogger
+virus
