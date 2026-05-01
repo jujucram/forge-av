@@ -1,152 +1,228 @@
-# ForgeAV Documentation
+============================================================
+                     FORGEAV DOCUMENTATION
+============================================================
 
-## 1. Introduction
 
-ForgeAV est un antivirus en ligne de commande développé en langage C.  
-Ce projet a pour objectif de démontrer les bases du fonctionnement d’un antivirus, notamment la détection de menaces à partir de signatures.
+SYSTEM OVERVIEW
 
-Il est conçu à des fins pédagogiques pour les étudiants et développeurs souhaitant comprendre :
-- l’analyse de fichiers
-- la détection de malwares
-- la programmation système en C
+ForgeAV est un antivirus en ligne de commande développé en langage C.
+Il est conçu pour analyser des fichiers et détecter des menaces en
+utilisant un moteur basé sur des signatures et des modules de sécurité.
 
----
+Le projet est structuré de manière modulaire avec une séparation claire
+entre le cœur du moteur (core) et les composants de sécurité (security).
 
-## 2. Fonctionnalités
+ForgeAV utilise également des fonctionnalités cryptographiques du système
+Windows via la bibliothèque crypt32 pour renforcer certaines opérations.
 
-- Analyse de fichiers en ligne de commande  
-- Détection de signatures malveillantes  
-- Affichage des résultats en temps réel  
-- Code structuré et modulaire  
-- Facile à compiler et à exécuter  
 
----
+------------------------------------------------------------
+CORE FEATURES
+------------------------------------------------------------
 
-## 3. Architecture du projet
+- Analyse de fichiers en temps réel via la console
+- Détection de signatures malveillantes
+- Architecture modulaire (core / security)
+- Intégration de fonctions de sécurité système
+- Support des API cryptographiques Windows
+- Code structuré pour évolution future
+
+
+------------------------------------------------------------
+PROJECT STRUCTURE
+------------------------------------------------------------
 
 ForgeAV/
-│── src/
-│   ├── main.c
-│   ├── scanner.c
-│   ├── scanner.h
-│
-│── signatures/
-│   └── signatures.txt
-│
-│── build/
-│   └── forgeav.exe
-│
-│── README.md
-│── Makefile
----
+|
+|-- main.c
+|
+|-- core/
+|   |-- scanner.c
+|   |-- file_utils.c
+|   |-- engine.c
+|
+|-- security/
+|   |-- crypto.c
+|   |-- hash.c
+|   |-- integrity.c
+|
+|-- signatures/
+|   |-- database.txt
+|
+|-- build/
+|
+|-- README.txt
 
-## 4. Installation
 
-### 4.1 Clonage du projet
+Description des modules :
 
-git clone https://github.com/jujucram/ForgeAV.git
-cd ForgeAV
-### 4.2 Compilation
+main.c
+Point d’entrée du programme. Gère l’interaction utilisateur.
 
-#### Sous Windows (GCC)
+core/
+Contient le moteur principal d’analyse :
+- lecture des fichiers
+- logique de scan
+- gestion des résultats
 
-gcc src/main.c src/scanner.c -o forgeav.exe
-#### Sous Linux
+security/
+Contient les fonctions de sécurité avancées :
+- hashing
+- vérification d’intégrité
+- opérations cryptographiques
 
-gcc src/main.c src/scanner.c -o forgeav
----
+signatures/
+Base de données des signatures malveillantes
 
-## 5. Utilisation
 
-### 5.1 Lancement
+------------------------------------------------------------
+COMPILATION
+------------------------------------------------------------
 
-Sous Linux :
+Commande officielle :
 
-./forgeav
-Sous Windows :
+gcc main.c core/*.c security/*.c -o forgeav.exe -lcrypt32
+
+Explication :
+
+main.c
+Fichier principal
+
+core/*.c
+Modules du moteur de scan
+
+security/*.c
+Modules de sécurité
+
+-lcrypt32
+Bibliothèque Windows pour les fonctions cryptographiques
+
+
+------------------------------------------------------------
+EXECUTION
+------------------------------------------------------------
+
+Lancer le programme :
 
 forgeav.exe
-### 5.2 Analyse d’un fichier
 
-Lors de l’exécution, le programme demande un chemin de fichier :
 
-Enter file path: test.txt
-### 5.3 Résultat
+------------------------------------------------------------
+USAGE FLOW
+------------------------------------------------------------
 
-Exemple de sortie :
+1. L’utilisateur lance ForgeAV
+2. Le programme demande un chemin de fichier
+3. Le moteur charge les signatures
+4. Le fichier est analysé
+5. Les résultats sont affichés
 
+
+Exemple :
+
+Enter file path: sample.exe
+
+[INFO] Initializing engine...
+[INFO] Loading signatures...
 [INFO] Scanning file...
-[ALERT] Threat detected: trojan_test
----
 
-## 6. Fonctionnement interne
+[ALERT] Threat detected: Trojan.Generic
 
-Le fonctionnement de ForgeAV repose sur une approche simple basée sur des signatures :
 
-1. Ouverture du fichier cible  
-2. Lecture du contenu  
-3. Chargement des signatures depuis un fichier externe  
-4. Comparaison entre le contenu et les signatures  
-5. Signalement d’une menace en cas de correspondance  
+------------------------------------------------------------
+SCAN ENGINE LOGIC
+------------------------------------------------------------
 
----
+Le moteur de ForgeAV fonctionne selon les étapes suivantes :
 
-## 7. Gestion des signatures
+- Ouverture du fichier cible
+- Lecture binaire ou texte
+- Chargement de la base de signatures
+- Comparaison avec les signatures
+- Vérification d’intégrité (optionnelle)
+- Retour des résultats
 
-Les signatures sont stockées dans :
 
-signatures/signatures.txt
-Exemple de contenu :
+------------------------------------------------------------
+SECURITY MODULE
+------------------------------------------------------------
 
-virus123
-trojan_test
-malware_sample
-Chaque ligne correspond à une signature recherchée dans les fichiers analysés.
+Le module security implémente :
 
----
+- Fonctions de hash (MD5, SHA)
+- Vérification d’intégrité des fichiers
+- Utilisation de crypt32 pour certaines opérations système
 
-## 8. Limitations
+Ce module permet d’ajouter des mécanismes avancés de détection.
 
-- Absence de protection en temps réel  
-- Détection limitée aux signatures simples  
-- Pas d’analyse heuristique  
-- Pas de scan de répertoires  
-- Pas d’interface graphique  
 
----
+------------------------------------------------------------
+SIGNATURE DATABASE
+------------------------------------------------------------
 
-## 9. Améliorations possibles
+Localisation :
 
-- Ajout du scan de dossiers  
-- Détection heuristique  
-- Base de signatures dynamique  
-- Optimisation des performances  
-- Interface graphique  
-- Analyse multi-thread  
+signatures/database.txt
 
----
+Format :
 
-## 10. Contribution
+Chaque ligne correspond à une signature.
 
-Les contributions sont ouvertes.
+Exemple :
 
-Procédure :
+trojan_generic
+malware_test
+virus_sample
 
-1. Fork du dépôt  
-2. Création d’une branche  
-3. Ajout des modifications  
-4. Soumission d’une Pull Request  
 
----
+------------------------------------------------------------
+LIMITATIONS
+------------------------------------------------------------
 
-## 11. Auteur
+- Pas de protection en temps réel
+- Pas d’analyse heuristique avancée
+- Détection limitée aux signatures
+- Interface uniquement en ligne de commande
 
-Brandon Moukam  
-Étudiant en informatique  
-GitHub : https://github.com/jujucram  
 
----
+------------------------------------------------------------
+FUTURE IMPROVEMENTS
+------------------------------------------------------------
 
-## 12. Licence
+- Analyse heuristique
+- Scan de répertoires complets
+- Interface graphique
+- Base de signatures dynamique
+- Détection comportementale
+- Multi-threading
 
-Ce projet est distribué sous licence MIT.
+
+------------------------------------------------------------
+SECURITY NOTICE
+------------------------------------------------------------
+
+ForgeAV est un projet éducatif.
+
+Il ne doit pas être utilisé comme solution de sécurité principale
+dans un environnement de production.
+
+
+------------------------------------------------------------
+AUTHOR
+------------------------------------------------------------
+
+Brandon Moukam
+Étudiant en informatique
+GitHub : https://github.com/jujucram
+
+
+------------------------------------------------------------
+LICENSE
+------------------------------------------------------------
+
+MIT License
+
+
+============================================================
+                     END OF DOCUMENT
+============================================================
