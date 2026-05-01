@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <windows.h>
 #include "core/scanner.h"
 #include "core/process.h"
 #include "core/monitor.h"
@@ -10,6 +11,8 @@ int main() {
     char path[256];
 
     while (1) {
+        printf("\n Welcome to ForgeAV \n");
+        Sleep(5000);
         printf("\n=== ForgeAV ===\n");
         printf("1. Scan directory\n");
         printf("2. Scan processes\n");
@@ -20,7 +23,7 @@ int main() {
 
         if (scanf("%d", &choice) != 1) {
             printf("Invalid input!\n");
-            while (getchar() != '\n'); // clean buffer
+            while (getchar() != '\n');
             continue;
         }
 
@@ -48,7 +51,8 @@ int main() {
                 break;
 
             case 5:
-                printf("Au revoir!\n");
+                printf("\n Goodbye to ForgeAV!\n");
+                Sleep(5000);
                 return 0;
 
             default:
