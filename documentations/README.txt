@@ -212,7 +212,7 @@ AUTHOR
 ------------------------------------------------------------
 
 Brandon Moukam
-Étudiant en informatique
+Étudiant en informatique | Développeur Systèmes | Web | Polyvalent 
 GitHub : https://github.com/jujucram
 
 
