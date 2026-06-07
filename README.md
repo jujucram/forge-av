@@ -55,6 +55,10 @@ Menu disponible :
 - `logs/` - fichiers de journalisation des scans
 - `quarantine/` - fichiers isolés
 
+ ## MIT Licence 
+ 
+ ce projet est sous licence MIT.
+ 
  ## Contributeur 
 
 <p align="center">
