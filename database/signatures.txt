@@ -2,3 +2,4 @@ trojan
 malware
 keylogger
 virus
+NB: vous pouvez vous documenter sur des signatures malveillantes pour enrichir ce vocabulaire.
